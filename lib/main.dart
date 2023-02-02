@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_app/core/init/colors.dart';
 import 'package:instagram_clone_app/core/responsive/mobile_screen_layout.dart';
-import 'package:instagram_clone_app/core/responsive/responsive_layout_screen.dart';
+import 'package:instagram_clone_app/core/responsive/responsive_layout.dart';
 import 'package:instagram_clone_app/core/responsive/web_screen_layout.dart';
 import 'package:instagram_clone_app/core/state/user_provider.dart';
 import 'package:instagram_clone_app/view/login/login_view.dart';
@@ -43,7 +43,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Instagram Clone',
         theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-        home: StreamBuilder(
+        home: 
+
+        StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
             return const LoginView();
           },
         ),
-        // const Responsivelayout(webScreenLayout: WebScreenLayout(), mobileScreenLayout: MobileScreenLayout())
+       
       ),
     );
   }

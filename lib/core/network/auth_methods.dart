@@ -5,17 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram_clone_app/core/network/storage_methods.dart';
 import 'package:instagram_clone_app/core/models/user_model.dart' as model;
 
-
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<model.UserModel> getUserDetails() async {
-   User currentUSer = _auth.currentUser!;
-   DocumentSnapshot snap = await _firestore.collection('users').doc(currentUSer.uid).get();
+    User currentUSer = _auth.currentUser!;
+    DocumentSnapshot snap = await _firestore.collection('users').doc(currentUSer.uid).get();
 
-   return model.UserModel.fromSnap(snap);
+    return model.UserModel.fromSnap(snap);
   }
+
 // sign up user
   Future<String> signUpUser({
     required String email,
@@ -26,7 +26,7 @@ class AuthMethods {
   }) async {
     String res = 'Some error occured';
     try {
-      if (email.isNotEmpty || password.isNotEmpty || username.isNotEmpty || bio.isNotEmpty) {
+      if (email.isNotEmpty || password.isNotEmpty || username.isNotEmpty || bio.isNotEmpty || file.isNotEmpty) {
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -46,28 +46,25 @@ class AuthMethods {
             photoUrl: photoUrl);
 
         await _firestore.collection('users').doc(cred.user!.uid).set(user.toJson());
+
+        res = "success";
+      } else { 
+        res = "Please enter all the fields";
       }
-         res = 'success';
-    // } on FirebaseAuthException catch (err) {
-    //   if (err.code == 'invalid-email') {
-    //     res = 'Email is badly formatted';
-    //   } else if (err.code == 'weak-password') {
-    //     res = 'Password should be at least 6 characters';
-    //   }
-     
+      // } on FirebaseAuthException catch (err) {
+      //   if (err.code == 'invalid-email') {
+      //     res = 'Email is badly formatted';
+      //   } else if (err.code == 'weak-password') {
+      //     res = 'Password should be at least 6 characters';
+      //   }
     } catch (err) {
-        res= err.toString();
+      res = err.toString();
     }
     return res;
   }
-  //   } catch (err) {
-  //     res = err.toString();
-  //   }
-  //   return res;
-  // }
 
   //Log in user
-  Future<String> loginUSer({
+  Future<String> loginUser({
     required String email,
     required String password,
   }) async {
@@ -84,5 +81,9 @@ class AuthMethods {
       res = err.toString();
     }
     return res;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

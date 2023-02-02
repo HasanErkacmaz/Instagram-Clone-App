@@ -76,6 +76,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           )
         ],
         onTap: navigationtaped,
+        currentIndex: _page,
       ),
     );
   }

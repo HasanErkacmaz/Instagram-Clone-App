@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:instagram_clone_app/core/extensions/widgets/post.card.dart';
+import 'package:instagram_clone_app/core/widgets/post.card.dart';
 import 'package:instagram_clone_app/core/init/colors.dart';
 
 class FeedView extends StatelessWidget {

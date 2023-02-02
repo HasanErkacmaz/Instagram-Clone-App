@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_app/core/extensions/widgets/comment_card.dart';
+import 'package:instagram_clone_app/core/widgets/comment_card.dart';
 import 'package:instagram_clone_app/core/init/colors.dart';
 import 'package:instagram_clone_app/core/network/fire_store_methods.dart';
 import 'package:provider/provider.dart';

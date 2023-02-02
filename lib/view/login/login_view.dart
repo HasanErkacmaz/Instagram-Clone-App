@@ -3,10 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_app/core/network/auth_methods.dart';
-import 'package:instagram_clone_app/core/extensions/widgets/text_field_input.dart';
+import 'package:instagram_clone_app/core/widgets/text_field_input.dart';
 import 'package:instagram_clone_app/core/init/colors.dart';
 import 'package:instagram_clone_app/core/init/image_picker.dart';
 import 'package:instagram_clone_app/view/signup/sign_up_view.dart';
+
+import '../../core/responsive/mobile_screen_layout.dart';
+import '../../core/responsive/responsive_layout.dart';
+import '../../core/responsive/web_screen_layout.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -26,15 +30,22 @@ class _LoginViewState extends State<LoginView> {
     _passwordController.dispose();
   }
 
-  Future<void> loginUser() async {
+  Future<void> loginUserr() async {
 
     setState(() {
       _isLoading=true;
     });
-    String res = await AuthMethods().loginUSer(email: _emailController.text, password: _passwordController.text);
+    String res = await AuthMethods().loginUser(email: _emailController.text, password: _passwordController.text);
 
     if (res == 'Success') {
-     
+     Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const Responsivelayout(
+              mobileScreenLayout: MobileScreenLayout(),
+              webScreenLayout: WebScreenLayout(),
+            ),
+          ),
+          (route) => false);
     } else {
       // ignore: use_build_context_synchronously
       showSnackBar(res, context);
@@ -90,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
             height: 24,
           ),
           InkWell(
-            onTap: loginUser,
+            onTap: loginUserr,
             child: Container(
               width: double.infinity,
               alignment: Alignment.center,
